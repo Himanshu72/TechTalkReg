@@ -36,7 +36,7 @@ handleDisconnect();
 
 let BCAC=0;
 let IMC=0;
-let BCA=76;
+let BCA=70;
 let IM=22;
 let all=0;
 
@@ -64,7 +64,11 @@ connection.query("UPDATE `users` SET `ID` = ID + 100 WHERE `users`.`ID` = "+id+"
 
 
 
-
+router.get("/capacity",function(req,res)
+{
+  res.write("BCA:"+BCAC+",IM:"+IMC );
+  res.end();
+});
 
 router.get("/sid",function(req,res){
   res.render("searchbyid",{err:false,scc:false,msg:"",lname:"",fname:"",id:""});
@@ -237,7 +241,7 @@ if(clas==1){
     res.render("register",{ check:true,type:"alert-danger",msg:"Registration are Over",swal:false,id:""})
     return;
   }
-    BCAC++;
+    
 }else{
   
 
@@ -246,7 +250,7 @@ if(clas==1){
     res.render("register",{ check:true,type:"alert-danger",msg:"Registration are Over",swal:false,id:""})
     return;
   }
-  IMC++;
+  
 }
     
   
@@ -256,11 +260,25 @@ all++;
 connection.query("INSERT INTO `users` (`UserID`, `ID`, `Fname`, `Lname`, `Email`  ) VALUES ('"+ID+"', '"+all+"', '"+fname+"', '"+Lname+"', '"+email+"');", function (err, results, fields) {
   if (err) {
     res.render("register",{ check:true,type:"alert-danger",msg:"Some thing Went Wrong",swal:false,id:""});
+    all--;
+   
     return console.log(err);
+    
   }
 
   if (results) { 
+    
+
+
     res.render("register",{ check:true,type:"alert-success",msg:"successfully registered",swal:true,id:all});
+    switch(clas){
+      case "1":
+         BCAC++;
+         break;
+      case "2":
+        IMC++;
+        break;
+    }
     
     return;
 
