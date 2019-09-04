@@ -12,6 +12,9 @@ var connection = mysql.createConnection({
 });
 
 
+
+
+
 function handleDisconnect() {
  connection.connect(function(err) {              // The server is either down
     if(err) {                                     // or restarting (takes a while sometimes).
@@ -41,6 +44,27 @@ let IM=22;
 let all=0;
 
 /* GET home page. */
+connection.query("SELECT COUNT (ID) as 'COUNT' FROM users ;", function (err, results, fields) {
+  if(results.length>0){
+    
+    all=results[0].COUNT;
+  }
+});
+
+connection.query("SELECT COUNT (ID) as 'COUNT' FROM users where UserID LIKE '1%' ;", function (err, results, fields) {
+  if(results.length>0){
+    console.log("BCA COUNT",results[0].COUNT);
+    BCAC=results[0].COUNT;
+  }
+});
+
+connection.query("SELECT COUNT (ID) as 'COUNT' FROM users where UserID LIKE '2%' ;", function (err, results, fields) {
+  if(results.length>0){
+    console.log("BCA COUNT",results[0].COUNT);
+    IMC=results[0].COUNT;
+  }
+});
+
 
 
 
@@ -151,8 +175,15 @@ router.get("/search",function(req,res){
   
 
 
+function getCount(){
+  
+var c;
+
+return c;
+}
 
 
+getCount();
   
   
 
@@ -173,6 +204,8 @@ router.get("/register",function(req,res){
 
 router.post("/register",function(req,res){
   let users;
+
+
 
 
 
