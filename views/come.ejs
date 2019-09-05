@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TeachTalk</title>
+   
+    <%- include('head') %>
+  </head>
+  <body>
+    <!--Navbar -->
+    
+<!--/.Navbar -->
+  <div class="container-fluid">
+<table class="table text-center">
+  <br>
+  <h2 style="text-align: center;" ><b><%=msg%></b> </h2>
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Section</th>
+        <th scope="col">RollNO</th>
+        <th scope="col" >Class</th>
+        <th scope="col">Course</th>
+            
+    </thead>
+    <tbody>
+        <% if(check){ %>
+            <%let id=1; %>
+          <% for(let ele of results){ %> 
+            
+      <tr>
+        <th scope="row"><%=id++%></th>
+        <td><%=ele.fname%></td>
+        <td><%=ele.lname%></td>
+        <td><%=ele.a[2]%></td>
+        <td><%=ele.a[3]%></td>
+        <td><%=ele.a[1]%></td>
+        <td><%=ele.a[0] %></td>
+            
+      </tr>
+      <%}%>
+     <%}else{%>
+        <div class="alert alert-danger">No Data</div>
+        <%}%>
+    </tbody>
+   
+  </table>
+  </div>
+  <br><br>
+  <%- include('scripts') %>
+  
+</body>
+</html>

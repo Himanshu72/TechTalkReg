@@ -187,6 +187,36 @@ getCount();
   
   
 
+function idTODetails(id){
+let a=new Array(4);
+  if(id[0]=="1"){
+    a[0]="BCA"
+}
+else{
+a[0]="MSCIT"
+}
+
+if(id.substring(1, 5)=="2017"){
+  a[1]="TY"
+}else if(id.substring(1, 5)=="2018"){
+  a[1]="SY"
+}else{
+  a[1]="FY"
+}
+
+if(id[5]=="1"){
+a[2]="A";
+}else if(id[5]=="2"){
+  a[2]="B";
+}
+else{
+  a[2]="C";
+}
+
+a[3]=id.substring(6)
+return a;
+}
+
 
 
 
@@ -194,9 +224,48 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+router.get("/come",function(req,res){
+let push=[];
 
+  connection.query("SELECT *  FROM `users`  where ID > 100  ", function (err, results, fields) {
+    //console.log(results);
+    if(results.length > 0){
+     
+      for(let ele of results){
+        let a=idTODetails(ele.UserID.toString());
+          
+          //console.log(ele.UserID);
+        push.push({fname:ele.Fname,lname:ele.Lname,a:a})        
+      }
 
+      res.render("come",{results:push,check:true,msg:"Present"});
+    }else{
+      res.render("come",{results:push,check:false,msg:"Present"});  
+    }
+    
+  
+  
+  });
 
+});
+
+router.get("/notcome",function(req,res){
+  connection.query("SELECT *  FROM `users`  where ID <= 100  ", function (err, results, fields) {
+    if(results.length > 0){
+     let push=[];
+      for(let ele of results){
+        let a=idTODetails(ele.UserID.toString());
+          
+          //console.log(ele.UserID);
+        push.push({fname:ele.Fname,lname:ele.Lname,a:a})        
+      }
+
+      res.render("come",{results:push,check:true,msg:"Absent"});
+    }else{
+      res.render("come",{results:push,check:false,msg:"Absent"});  
+    }
+  });
+})
 
 router.get("/register",function(req,res){
   res.render("register",{ check:false,type:"",msg:"",swal:false,id:""});
