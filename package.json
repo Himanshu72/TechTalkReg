@@ -17,6 +17,6 @@
     "phantom-html-to-pdf": "^0.6.0",
     "phantomjs": "^2.1.7",
     "serve-favicon": "^2.5.0",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   }
 }
